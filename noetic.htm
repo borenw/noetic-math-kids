@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noetic Math Quest</title>
+<meta name="description" content="Noetic-style math contest practice for 8-year-olds: patterns, logic, coins, ages, legs, line-ups and more, with hands-on helpers, hints and step-by-step answers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff8ec; --card:#ffffff; --ink:#2b2350; --soft:#6b6390; --line:#e8dfcf;
+  --pri:#6c4cf1; --pri2:#8f76ff; --good:#1f9d55; --goodbg:#e3f7ea; --bad:#d64545; --badbg:#fde8e8;
+  --sun:#ffb703; --sky:#cfe9ff; --mint:#d8f5e6; --pink:#ffe0ec; --peach:#ffe8cc;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#191630; --card:#25204a; --ink:#f3efff; --soft:#b9b0e0; --line:#3a3366;
+  --pri:#9b85ff; --pri2:#b7a6ff; --good:#4fd18b; --goodbg:#163a2a; --bad:#ff7b7b; --badbg:#3d1c25;
+  --sky:#23395a; --mint:#1d3f33; --pink:#45243a; --peach:#45351f;
+}}
+:root[data-theme="dark"]{
+  --bg:#191630; --card:#25204a; --ink:#f3efff; --soft:#b9b0e0; --line:#3a3366;
+  --pri:#9b85ff; --pri2:#b7a6ff; --good:#4fd18b; --goodbg:#163a2a; --bad:#ff7b7b; --badbg:#3d1c25;
+  --sky:#23395a; --mint:#1d3f33; --pink:#45243a; --peach:#45351f;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Fredoka",system-ui,sans-serif;font-size:20px;line-height:1.45}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:32px;font-weight:700;letter-spacing:.3px}
+header h1 span{color:var(--pri)}
+.owl{font-size:44px;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-4deg)}}
+.stars{margin-left:auto;font-size:22px;font-weight:600;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:4px 14px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:20px;margin-top:16px;box-shadow:0 4px 0 var(--line)}
+.btn{font:inherit;font-weight:600;border:0;border-radius:16px;padding:12px 20px;cursor:pointer;background:var(--pri);color:#fff;box-shadow:0 4px 0 #4a2fc4;transition:transform .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #4a2fc4}
+.btn.alt{background:var(--card);color:var(--ink);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.btn.sm{padding:8px 14px;font-size:17px;border-radius:12px}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px}
+.chip{font:inherit;font-size:17px;text-align:left;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:10px 12px;cursor:pointer}
+.chip:hover{border-color:var(--pri)}
+.chip b{font-size:22px;margin-right:6px}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{background:var(--sky);border-radius:999px;padding:3px 12px;font-size:16px;font-weight:600}
+.prog{flex:1;min-width:120px;height:14px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--sun),var(--pri));width:0;transition:width .4s}
+.q{font-size:24px;margin:14px 0 6px}
+.q .big{font-size:30px;letter-spacing:4px}
+figure{margin:12px 0;padding:10px;background:var(--bg);border-radius:16px;text-align:center}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:15px;color:var(--soft);margin-top:4px}
+.play{background:var(--mint);border-radius:16px;padding:12px 14px;margin:12px 0}
+.play h4{margin:0 0 6px;font-size:18px}
+.answer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.answer input{font:inherit;font-size:28px;width:150px;padding:8px 12px;border-radius:14px;border:3px solid var(--line);background:var(--card);color:var(--ink);text-align:center}
+.answer input:focus{outline:none;border-color:var(--pri)}
+.unit{font-size:20px;color:var(--soft)}
+.choices{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.choice{font:inherit;font-size:26px;min-width:84px;padding:10px 16px;border-radius:14px;border:3px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.choice:hover{border-color:var(--pri)}
+.choice.wrong{border-color:var(--bad);background:var(--badbg)}
+.choice.right{border-color:var(--good);background:var(--goodbg)}
+.pad{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;max-width:420px;margin-top:10px}
+.pad button{font:inherit;font-size:22px;padding:8px 0;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.msg{margin-top:12px;padding:12px 14px;border-radius:14px;display:none}
+.msg.good{display:block;background:var(--goodbg);color:var(--good);font-weight:600}
+.msg.bad{display:block;background:var(--badbg);color:var(--bad);font-weight:600}
+.hint{margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--peach);display:none}
+.steps{margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--pink);display:none}
+.steps ol{margin:6px 0 0;padding-left:24px}
+.tools{margin-top:14px}
+.scratch{margin-top:10px;display:none}
+.scratch canvas{width:100%;height:260px;background:var(--card);border:2px dashed var(--line);border-radius:14px;touch-action:none;display:block}
+.emo{font-size:30px;letter-spacing:2px}
+.cell{display:inline-block;margin:2px;padding:2px 4px;border-radius:8px;font-size:22px}
+.cell small{display:block;font-size:12px;color:var(--soft)}
+.cell.hl{background:var(--sun)}
+.coin{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;margin:4px;cursor:pointer;font-weight:700;font-size:15px;border:3px solid #b8860b;background:#f6d365;color:#5a4300;user-select:none}
+.coin.p{background:#e3a06b;border-color:#a0522d;color:#4a2412}
+.coin.done{opacity:.35;transform:scale(.9)}
+.ink{stroke:var(--ink)}.tx{fill:var(--ink)}.sx{fill:var(--soft)}.flA{fill:var(--pink);stroke:var(--ink)}.flB{fill:var(--mint);stroke:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--pri)}
+table.res{width:100%;border-collapse:collapse;margin-top:10px;font-size:18px}
+table.res td,table.res th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left}
+.burst{position:fixed;pointer-events:none;font-size:30px;z-index:9;animation:fly 1.1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(260deg);opacity:0}}
+footer{margin:28px 0 12px;text-align:center;font-size:15px;color:var(--soft)}
+footer a{color:var(--pri)}
+.hide{display:none}
+@media (max-width:520px){body{font-size:18px}header h1{font-size:25px}.q{font-size:21px}.owl{font-size:36px}.card{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="owl" aria-hidden="true">🦉</div>
+    <h1>Noetic <span>Math Quest</span></h1>
+    <div class="stars" id="starbox">⭐ 0</div>
+  </header>
+
+  <!-- HOME -->
+  <section id="home" class="card">
+    <p style="margin-top:0">Hi! I'm <b>Professor Hoot</b> 🦉. These are <b>puzzle problems</b> like the ones in the
+      Noetic math contest for 2nd and 3rd graders. They aren't hard sums. They're <b>thinking problems</b>.
+      Draw a picture, look for a pattern, and try small numbers first.</p>
+    <div class="row">
+      <button class="btn" id="startContest">🏆 Practice contest: 10 problems</button>
+      <button class="btn alt" id="themeBtn" title="Switch light / dark">🌓</button>
+    </div>
+    <p style="margin:18px 0 0;font-weight:600">Or practice one kind of puzzle (5 problems):</p>
+    <div class="chips" id="chips"></div>
+    <p class="unit" id="best" style="margin:14px 0 0"></p>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="game" class="card hide">
+    <div class="top">
+      <span class="tag" id="ptag"></span>
+      <div class="prog"><i id="pbar"></i></div>
+      <span id="pnum" style="font-weight:600"></span>
+    </div>
+    <div class="q" id="qtext"></div>
+    <div id="fig"></div>
+    <div id="play"></div>
+    <div id="ansArea"></div>
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint"></div>
+    <div class="steps" id="steps"></div>
+    <div class="row tools">
+      <button class="btn alt sm" id="hintBtn">💡 Hint</button>
+      <button class="btn alt sm" id="howBtn">📖 Show me how</button>
+      <button class="btn alt sm" id="readBtn">🔊 Read to me</button>
+      <button class="btn alt sm" id="padBtn">✏️ Scratch paper</button>
+      <button class="btn sm" id="nextBtn" style="margin-left:auto">Next ➜</button>
+    </div>
+    <div class="scratch" id="scratch">
+      <canvas id="cv"></canvas>
+      <div class="row" style="margin-top:6px">
+        <button class="btn alt sm" id="clearCv">🧽 Erase</button>
+        <span class="unit">Draw with your finger or mouse.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="done" class="card hide">
+    <h2 style="margin-top:0" id="doneTitle"></h2>
+    <p id="doneText"></p>
+    <table class="res" id="resTable"></table>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" id="again">🔁 Play again</button>
+      <button class="btn alt" id="homeBtn">🏠 Home</button>
+    </div>
+  </section>
+
+  <footer>
+    Stars: ⭐⭐ right on the first try with no hint · ⭐ right after a hint or a second try.<br>
+    For practice only. Not affiliated with Noetic Learning.<br>
+    <a href="https://borenw.github.io/">Page 62 · Bo's Engineering Curriculum</a>
+  </footer>
+</div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const R = (a,b) => a + Math.floor(Math.random()*(b-a+1));
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const shuffle = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const NAMES = ["Mia","Leo","Ava","Max","Zoe","Sam","Lily","Ben","Emma","Noah","Ruby","Owen"];
+const ord = n => n + (n%100>=11&&n%100<=13 ? "th" : ({1:"st",2:"nd",3:"rd"}[n%10]||"th"));
+const fmtTime = (h,m) => `${((h-1)%12)+1}:${String(m).padStart(2,"0")}`;
+
+/* ---------- SVG helpers ---------- */
+function scaleSVG(left, right, x){
+  return `<g transform="translate(${x},0)">
+    <polygon points="110,150 95,175 125,175" fill="#8d6e63"/>
+    <line x1="110" y1="70" x2="110" y2="150" stroke="#8d6e63" stroke-width="6"/>
+    <line x1="20" y1="70" x2="200" y2="70" stroke="#5d4037" stroke-width="6" stroke-linecap="round"/>
+    <line x1="30" y1="70" x2="30" y2="100" stroke="#999" stroke-width="2"/><line x1="190" y1="70" x2="190" y2="100" stroke="#999" stroke-width="2"/>
+    <path d="M-5 100 Q30 125 65 100 Z" fill="#cfd8dc"/><path d="M155 100 Q190 125 225 100 Z" fill="#cfd8dc"/>
+    <text x="30" y="95" font-size="22" text-anchor="middle">${left}</text>
+    <text x="190" y="95" font-size="22" text-anchor="middle">${right}</text></g>`;
+}
+function clockSVG(h,m){
+  const ha=((h%12)+m/60)*30*Math.PI/180, ma=m*6*Math.PI/180;
+  let ticks="";
+  for(let i=1;i<=12;i++){const a=i*30*Math.PI/180;ticks+=`<text x="${100+72*Math.sin(a)}" y="${107-72*Math.cos(a)}" font-size="17" text-anchor="middle" fill="#2b2350" font-family="Fredoka,sans-serif">${i}</text>`;}
+  return `<svg viewBox="0 0 200 200" width="190"><circle cx="100" cy="100" r="92" fill="#fff" stroke="#6c4cf1" stroke-width="8"/>${ticks}
+    <line x1="100" y1="100" x2="${100+45*Math.sin(ha)}" y2="${100-45*Math.cos(ha)}" stroke="#2b2350" stroke-width="7" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="${100+66*Math.sin(ma)}" y2="${100-66*Math.cos(ma)}" stroke="#ff6b6b" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="6" fill="#2b2350"/></svg>`;
+}
+
+/* ---------- Problem generators ---------- */
+/* Each returns {topic, text, fig?, figTitle?, ans, choices?, unit?, hint, steps[], play?(el)} */
+const GEN = {
+pattern(){
+  if (Math.random()<0.5){
+    const a=R(2,9), d=R(3,6), seq=[0,1,2,3,4].map(i=>a+i*d);
+    return {text:`Look at the pattern: <span class="big">${seq.join(", ")}, …</span><br>What is the <b>8th</b> number?`,
+      ans:a+7*d, hint:`How much does it go up each time? Keep adding that same amount until you reach the 8th number.`,
+      steps:[`Each number is <b>${d}</b> more than the one before.`,`5th = ${seq[4]}, 6th = ${seq[4]+d}, 7th = ${seq[4]+2*d}, 8th = <b>${seq[4]+3*d}</b>.`]};
+  }
+  const a=R(1,5), seq=[a]; for(let i=1;i<6;i++) seq.push(seq[i-1]+i);
+  return {text:`Look at the pattern: <span class="big">${seq.slice(0,5).join(", ")}, ?</span><br>What number comes next?`,
+    ans:seq[5], hint:`Find the jumps between neighbors. Do the jumps make a pattern?`,
+    steps:[`Jumps: +1, +2, +3, +4. The jumps grow by 1 each time.`,`Next jump is +5: ${seq[4]} + 5 = <b>${seq[5]}</b>.`]};
+},
+cycle(){
+  const sets=[["🔴","🟦","⭐"],["🍎","🍌","🍇","🍓"],["🐶","🐱","🐰"],["⬛","⬜","🔺","🔵"]];
+  const c=pick(sets), k=c.length, N=R(16,31), seq=[...c,...c,...c];
+  const ans=c[(N-1)%k];
+  return {text:`The pattern keeps going forever:<br><span class="emo">${seq.join(" ")} …</span><br>What is the <b>${ord(N)}</b> shape?`,
+    ans, choices:shuffle(c), hint:`The pattern repeats every <b>${k}</b> shapes. Count by ${k}s: ${k}, ${2*k}, ${3*k}, … Which group is the ${ord(N)} shape in?`,
+    steps:[`Each group has ${k} shapes: ${c.join(" ")}.`,`${Math.floor((N-1)/k)} full groups use ${Math.floor((N-1)/k)*k} shapes.`,`The ${ord(N)} shape is number ${(N-1)%k+1} in the next group, so it's ${ans}.`],
+    play(el){
+      el.innerHTML=`<h4>🧪 Help me see it</h4><button class="btn sm" id="showSeq">Show shapes 1 to ${N}</button><div id="seqOut" style="margin-top:8px"></div>`;
+      el.querySelector("#showSeq").onclick=()=>{let h="";for(let i=1;i<=N;i++)h+=`<span class="cell ${i%k===0?'hl':''}">${i===N?"❓":c[(i-1)%k]}<small>${i}</small></span>`;el.querySelector("#seqOut").innerHTML=h+`<div class="unit">Yellow marks the end of each group of ${k}.</div>`;};
+    }};
+},
+age(){
+  const n1=pick(NAMES), n2=pick(NAMES.filter(x=>x!==n1)), a=R(6,9), d=R(2,5), y=R(2,4);
+  if (Math.random()<0.5)
+    return {text:`${n1} is ${a} years old. ${n2} is ${d} years older than ${n1}. How old will ${n2} be in ${y} years?`,
+      ans:a+d+y, unit:"years old", hint:`First work out how old ${n2} is <b>now</b>. Then add the years.`,
+      steps:[`${n2} now: ${a} + ${d} = ${a+d}.`,`In ${y} years: ${a+d} + ${y} = <b>${a+d+y}</b>.`]};
+  return {text:`${n1} is ${a} and ${n2} is ${a+d}. In ${y} years, what will their ages <b>add up to</b>?`,
+    ans:2*a+d+2*y, hint:`<b>Both</b> of them get ${y} years older, so the total grows by ${y} + ${y}.`,
+    steps:[`Ages added up now: ${a} + ${a+d} = ${2*a+d}.`,`Each one gets ${y} years older, so add ${2*y}: ${2*a+d} + ${2*y} = <b>${2*a+d+2*y}</b>.`]};
+},
+coins(){
+  const q=R(1,3), d=R(1,4), n=R(1,4), p=R(0,4), tot=25*q+10*d+5*n+p, nm=pick(NAMES);
+  const list=[]; for(let i=0;i<q;i++)list.push(25); for(let i=0;i<d;i++)list.push(10); for(let i=0;i<n;i++)list.push(5); for(let i=0;i<p;i++)list.push(1);
+  return {text:`${nm} has ${q} quarter${q>1?"s":""}, ${d} dime${d>1?"s":""}, ${n} nickel${n>1?"s":""}${p?` and ${p} penn${p>1?"ies":"y"}`:""}. How many cents is that?`,
+    ans:tot, unit:"¢", hint:`Quarter = 25¢, dime = 10¢, nickel = 5¢, penny = 1¢. Start with the biggest coins.`,
+    steps:[`Quarters: ${q} × 25 = ${25*q}¢`,`Dimes: ${d} × 10 = ${10*d}¢`,`Nickels: ${n} × 5 = ${5*n}¢`+(p?`, pennies: ${p}¢`:""),`Total: <b>${tot}¢</b>`],
+    play(el){
+      el.innerHTML=`<h4>🧪 Tap each coin to count it</h4><div id="coins"></div><div style="margin-top:6px">Counted so far: <b id="cnt">0</b>¢</div>`;
+      let s=0; const box=el.querySelector("#coins");
+      list.forEach(v=>{const b=document.createElement("span");const sz={25:58,10:44,5:50,1:40}[v];b.className="coin"+(v===1?" p":"");b.style.width=b.style.height=sz+"px";b.textContent=v+"¢";
+        b.onclick=()=>{if(b.classList.contains("done"))return;b.classList.add("done");s+=v;el.querySelector("#cnt").textContent=s;};box.appendChild(b);});
+    }};
+},
+legs(){
+  const H=R(5,8), c=R(1,H-1), L=2*H+2*c;
+  return {text:`A farm has <b>${H}</b> animals. Some are chickens 🐔 and some are cows 🐄. Together they have <b>${L}</b> legs. How many <b>cows</b> are there?`,
+    ans:c, unit:"cows", hint:`Pretend they're <b>all</b> chickens first. That makes ${2*H} legs. Every time you swap a chicken for a cow, you add 2 legs.`,
+    steps:[`If all ${H} were chickens: ${H} × 2 = ${2*H} legs.`,`We need ${L} − ${2*H} = ${L-2*H} more legs.`,`Each cow brings 2 extra legs: ${L-2*H} ÷ 2 = <b>${c}</b> cows.`,`Check: ${H-c} chickens (${2*(H-c)} legs) + ${c} cows (${4*c} legs) = ${L}. ✓`],
+    play(el){
+      el.innerHTML=`<h4>🧪 Move the slider. Can you get ${L} legs?</h4><input type="range" min="0" max="${H}" value="0" id="sl"><div class="emo" id="ani"></div><div id="lg"></div>`;
+      const up=()=>{const k=+el.querySelector("#sl").value;el.querySelector("#ani").textContent="🐔".repeat(H-k)+"🐄".repeat(k);
+        const lg=2*(H-k)+4*k;el.querySelector("#lg").innerHTML=`${H-k} chickens + ${k} cows = <b>${lg}</b> legs ${lg===L?"🎯":""}`;};
+      el.querySelector("#sl").oninput=up; up();
+    }};
+},
+lineup(){
+  const nm=pick(NAMES), p=R(3,7), q=R(3,8), N=p+q-1;
+  return {text:`Kids stand in one line. ${nm} is <b>${ord(p)}</b> from the front and <b>${ord(q)}</b> from the back. How many kids are in the line?`,
+    ans:N, unit:"kids", hint:`Draw it! Careful: don't count ${nm} twice.`,
+    steps:[`From the front up to ${nm}: ${p} kids, counting ${nm}.`,`From the back up to ${nm}: ${q} kids, counting ${nm}.`,`${p} + ${q} counts ${nm} twice, so ${p} + ${q} − 1 = <b>${N}</b>.`],
+    play(el){
+      el.innerHTML=`<h4>🧪 Build the line. Add kids behind ${nm} 🦸</h4><div class="row"><button class="btn sm" id="add">➕ kid</button><button class="btn alt sm" id="rem">➖ kid</button></div><div class="emo" id="ln" style="margin-top:8px"></div><div id="lninfo"></div>`;
+      let back=0;
+      const up=()=>{el.querySelector("#ln").innerHTML="<span class='unit'>front ➜ </span>"+"🧒".repeat(p-1)+"🦸"+"🧒".repeat(back)+"<span class='unit'> ⬅ back</span>";
+        el.querySelector("#lninfo").innerHTML=`${nm} is <b>${ord(p)}</b> from the front and <b>${ord(back+1)}</b> from the back ${back+1===q?"🎯 Now count everyone!":""}`;};
+      el.querySelector("#add").onclick=()=>{if(back<12){back++;up();}}; el.querySelector("#rem").onclick=()=>{if(back>0){back--;up();}}; up();
+    }};
+},
+fence(){
+  const P=R(4,8), g=R(2,5), W=460, sp=W/(P-1);
+  let s=`<svg viewBox="0 0 520 130" width="520">`;
+  for(let i=0;i<P-1;i++){const x=30+i*sp;s+=`<line x1="${x}" y1="55" x2="${x+sp}" y2="55" stroke="#c49a6c" stroke-width="5"/><text x="${x+sp/2}" y="45" font-size="15" text-anchor="middle" class="sx" font-family="Fredoka,sans-serif">${g} m</text>`;}
+  for(let i=0;i<P;i++){const x=30+i*sp;s+=`<rect x="${x-6}" y="30" width="12" height="60" rx="3" fill="#8d6e63"/>`;}
+  s+=`<line x1="30" y1="110" x2="490" y2="110" stroke="#6c4cf1" stroke-width="2" marker-end="url(#ar)" marker-start="url(#ar)"/><text x="260" y="104" font-size="16" text-anchor="middle" fill="#6c4cf1" font-family="Fredoka,sans-serif">? m</text>
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6c4cf1"/></marker></defs></svg>`;
+  return {text:`A straight fence has <b>${P}</b> posts. The posts are <b>${g}</b> meters apart. How long is the fence from the first post to the last?`,
+    fig:s, figTitle:"Fence posts and the gaps between them", ans:(P-1)*g, unit:"meters",
+    hint:`Count the <b>gaps</b>, not the posts. With ${P} posts, how many gaps are there?`,
+    steps:[`${P} posts make ${P-1} gaps. Look at the picture!`,`${P-1} gaps × ${g} m = <b>${(P-1)*g} m</b>.`]};
+},
+squares(){
+  const [m,n]=pick([[2,2],[2,3],[3,3]]);
+  let tot=0; const per=[]; for(let k=1;k<=Math.min(m,n);k++){const c=(m-k+1)*(n-k+1);per.push([k,c]);tot+=c;}
+  const C=50, ox=20, oy=10; let s=`<svg viewBox="0 0 ${n*C+40} ${m*C+20}" width="${n*C+40}"><g id="hlg"></g>`;
+  for(let i=0;i<=m;i++)s+=`<line x1="${ox}" y1="${oy+i*C}" x2="${ox+n*C}" y2="${oy+i*C}" class="ink" stroke-width="3"/>`;
+  for(let j=0;j<=n;j++)s+=`<line x1="${ox+j*C}" y1="${oy}" x2="${ox+j*C}" y2="${oy+m*C}" class="ink" stroke-width="3"/>`;
+  s+=`</svg>`;
+  return {text:`How many <b>squares</b> of any size can you find in this ${m} by ${n} grid?`,
+    fig:s, figTitle:`A ${m} × ${n} grid`, ans:tot, unit:"squares",
+    hint:`Don't forget the <b>bigger</b> squares made from several little ones! Count each size on its own.`,
+    steps:[...per.map(([k,c])=>`${k}×${k} squares: ${c}`),`Total: ${per.map(x=>x[1]).join(" + ")} = <b>${tot}</b>`],
+    play(el){
+      el.innerHTML=`<h4>🧪 Tap a size to see every square of that size</h4><div class="row">${per.map(([k])=>`<button class="btn sm" data-k="${k}">${k}×${k}</button>`).join("")}</div><div id="sqc" style="margin-top:6px"></div>`;
+      let timer=null;
+      el.querySelectorAll("button[data-k]").forEach(b=>b.onclick=()=>{
+        const k=+b.dataset.k, g=document.getElementById("hlg"), list=[];
+        for(let i=0;i+k<=m;i++)for(let j=0;j+k<=n;j++)list.push([i,j]);
+        clearInterval(timer); let t=0; g.innerHTML="";
+        timer=setInterval(()=>{if(t>=list.length){clearInterval(timer);el.querySelector("#sqc").innerHTML=`<b>${list.length}</b> squares of size ${k}×${k}`;return;}
+          const [i,j]=list[t++];g.innerHTML=`<rect x="${ox+j*C+3}" y="${oy+i*C+3}" width="${k*C-6}" height="${k*C-6}" fill="#ffb703" opacity=".55" rx="4"/>`;
+          el.querySelector("#sqc").textContent=`${k}×${k} square #${t}`;},650);
+      });
+    }};
+},
+balance(){
+  const k=R(2,4), m=R(2,3), w=2;
+  const s=`<svg viewBox="0 0 470 185" width="470">${scaleSVG("🍉","🍊".repeat(k),0)}${scaleSVG("🍊","🍓".repeat(m),245)}</svg>`;
+  return {text:`The scales balance. 1 🍉 weighs the same as ${k} 🍊. 1 🍊 weighs the same as ${m} 🍓. How many 🍓 weigh the same as <b>${w}</b> 🍉?`,
+    fig:s, figTitle:"Two balanced scales", ans:w*k*m, unit:"🍓",
+    hint:`Swap step by step: first turn the 🍉 into 🍊, then turn each 🍊 into 🍓.`,
+    steps:[`${w} 🍉 = ${w} × ${k} = ${w*k} 🍊`,`${w*k} 🍊 = ${w*k} × ${m} = <b>${w*k*m}</b> 🍓`]};
+},
+clock(){
+  const h=R(1,10), m=pick([0,15,20,30,40,45]), dur=pick([35,45,50,70,75,90,95,105,120]);
+  const end=h*60+m+dur, eh=Math.floor(end/60), em=end%60, ans=fmtTime(eh,em);
+  const wrong=new Set(); [[eh,(em+30)%60],[eh-1<1?eh+1:eh-1,em],[eh+1,em],[eh,(em+15)%60]].forEach(([a,b])=>{const t=fmtTime(a,b);if(t!==ans)wrong.add(t);});
+  const dh=Math.floor(dur/60), dm=dur%60, ds=(dh?`${dh} hour${dh>1?"s":""} `:"")+(dm?`${dm} minutes`:"");
+  return {text:`A movie starts at the time on the clock. It lasts <b>${ds.trim()}</b>. What time does it end?`,
+    fig:clockSVG(h,m), figTitle:"When the movie starts", ans, choices:shuffle([ans,...[...wrong].slice(0,3)]),
+    hint:`Add the hours first, then the minutes. 60 minutes make 1 hour!`,
+    steps:[`Start: ${fmtTime(h,m)}.`,dh?`Add ${dh} hour${dh>1?"s":""}: ${fmtTime(h+dh,m)}.`:`No full hours to add.`,dm?`Add ${dm} minutes: ${m} + ${dm} = ${m+dm} minutes${m+dm>=60?` = 1 hour ${m+dm-60} minutes`:""}.`:``,`It ends at <b>${ans}</b>.`].filter(Boolean)};
+},
+digitsum(){
+  const s=R(3,9), list=[]; for(let t=1;t<=s;t++)list.push(t*10+(s-t));
+  return {text:`How many <b>two-digit numbers</b> have digits that add up to <b>${s}</b>? <span class="unit">(Like ${list[1]}: ${Math.floor(list[1]/10)} + ${list[1]%10} = ${s}.)</span>`,
+    ans:s, unit:"numbers", hint:`Make a list in order. Tens digit 1, then 2, then 3… What does the ones digit have to be each time?`,
+    steps:[`Go in order, tens digit first:`,list.join(", "),`That's <b>${s}</b> numbers. (A tens digit of 0 doesn't make a two-digit number.)`]};
+},
+fruit(){
+  const x=R(3,9), y=R(1,9);
+  return {text:`Each fruit stands for a number.<br><span class="emo">🍎 + 🍎 = ${2*x}</span><br><span class="emo">🍎 + 🍌 = ${x+y}</span><br>What number is 🍌?`,
+    ans:y, hint:`Use the first line to find 🍎. Two equal apples make ${2*x}.`,
+    steps:[`🍎 + 🍎 = ${2*x}, so 🍎 = ${2*x} ÷ 2 = ${x}.`,`${x} + 🍌 = ${x+y}, so 🍌 = ${x+y} − ${x} = <b>${y}</b>.`]};
+},
+cuts(){
+  const n=R(4,9), t=R(2,5);
+  let s=`<svg viewBox="0 0 500 90" width="500"><rect x="20" y="25" width="460" height="40" rx="20" fill="#c49a6c" stroke="#8d6e63" stroke-width="3"/>`;
+  for(let i=1;i<n;i++){const x=20+i*460/n;s+=`<line x1="${x}" y1="15" x2="${x}" y2="75" stroke="#d64545" stroke-width="3" stroke-dasharray="6 4"/>`;}
+  s+=`</svg>`;
+  return {text:`It takes <b>${t}</b> minutes to make one cut in a log. How many minutes does it take to cut the log into <b>${n}</b> pieces?`,
+    fig:s, figTitle:`The log cut into ${n} pieces (red dashes are cuts)`, ans:(n-1)*t, unit:"minutes",
+    hint:`Count the red cut lines in the picture. Is it the same as the number of pieces?`,
+    steps:[`${n} pieces need only ${n-1} cuts.`,`${n-1} cuts × ${t} minutes = <b>${(n-1)*t}</b> minutes.`]};
+},
+pages(){
+  const n=R(12,30);
+  return {text:`A book has pages numbered 1 to <b>${n}</b>. How many <b>digits</b> are printed in all? <span class="unit">(Page 10 uses 2 digits: 1 and 0.)</span>`,
+    ans:9+2*(n-9), unit:"digits", hint:`Split it up: pages 1–9 use one digit each. Pages 10–${n} use two digits each.`,
+    steps:[`Pages 1–9: 9 pages × 1 digit = 9.`,`Pages 10–${n}: ${n-9} pages × 2 digits = ${2*(n-9)}.`,`Total: 9 + ${2*(n-9)} = <b>${9+2*(n-9)}</b>.`]};
+},
+share(){
+  const a=pick(NAMES), b=pick(NAMES.filter(x=>x!==a)), B=R(3,8), A=B+2*R(2,6), g=(A-B)/2;
+  return {text:`${a} has <b>${A}</b> candies 🍬 and ${b} has <b>${B}</b>. How many candies should ${a} give ${b} so they have the <b>same</b> number?`,
+    ans:g, unit:"candies", hint:`It's <b>not</b> ${A-B}! When ${a} gives one away, ${a} loses 1 <b>and</b> ${b} gains 1.`,
+    steps:[`Together they have ${A} + ${B} = ${A+B}.`,`Same number each: ${A+B} ÷ 2 = ${(A+B)/2}.`,`${a} gives ${A} − ${(A+B)/2} = <b>${g}</b>.`],
+    play(el){
+      el.innerHTML=`<h4>🧪 Give candies one at a time</h4><div class="row"><button class="btn sm" id="give">${a} gives 1 ➜</button><button class="btn alt sm" id="back">↩ undo</button></div><div id="pile" style="margin-top:6px"></div>`;
+      let k=0; const up=()=>{el.querySelector("#pile").innerHTML=`<div>${a}: ${"🍬".repeat(A-k)} (${A-k})</div><div>${b}: ${"🍬".repeat(B+k)} (${B+k})</div><div>Given: <b>${k}</b> ${A-k===B+k?"🎯 Same!":""}</div>`;};
+      el.querySelector("#give").onclick=()=>{if(A-k>0){k++;up();}}; el.querySelector("#back").onclick=()=>{if(k>0){k--;up();}}; up();
+    }};
+},
+stairs(){
+  const f1=R(2,3), per=R(2,4), t=per*(f1-1), f2=R(f1+2,7), nm=pick(NAMES);
+  let s=`<svg viewBox="0 0 200 ${f2*34+20}" width="160">`;
+  for(let i=0;i<f2;i++){const y=10+(f2-1-i)*34;s+=`<rect x="40" y="${y}" width="120" height="34" class="${i<f1?'flA':'flB'}" stroke-width="2"/><text x="100" y="${y+23}" font-size="16" text-anchor="middle" class="tx" font-family="Fredoka,sans-serif">Floor ${i+1}</text>`;}
+  s+=`</svg>`;
+  return {text:`${nm} walks up the stairs from floor 1 to floor ${f1} in <b>${t}</b> minutes. At the same speed, how many minutes to go from floor 1 to floor <b>${f2}</b>?`,
+    fig:s, figTitle:`A building with ${f2} floors`, ans:per*(f2-1), unit:"minutes",
+    hint:`Count the <b>flights of stairs</b>, not the floors. Floor 1 to floor ${f1} is only ${f1-1} flight${f1>2?"s":""}.`,
+    steps:[`Floor 1 → ${f1} is ${f1-1} flight${f1>2?"s":""}, so 1 flight takes ${t} ÷ ${f1-1} = ${per} minutes.`,`Floor 1 → ${f2} is ${f2-1} flights.`,`${f2-1} × ${per} = <b>${per*(f2-1)}</b> minutes.`]};
+}
+};
+const TOPICS = {
+  pattern:["🔢","Number patterns"], cycle:["🔁","Repeating shapes"], age:["🎂","Age puzzles"], coins:["🪙","Coins"],
+  legs:["🐔","Chickens & cows"], lineup:["🧍","Line-ups"], fence:["🪵","Fence posts"], squares:["⬛","Count the squares"],
+  balance:["⚖️","Balance scales"], clock:["⏰","Time"], digitsum:["🔍","Make a list"], fruit:["🍎","Fruit equations"],
+  cuts:["🪚","Cutting logs"], pages:["📖","Page digits"], share:["🍬","Fair share"], stairs:["🪜","Stairs"]
+};
+
+/* ---------- State ---------- */
+let round=[], idx=0, cur=null, tries=0, usedHint=false, solved=false, results=[], stars=0, mode=null;
+const store = { get(k){try{return localStorage.getItem(k);}catch(e){return null;}}, set(k,v){try{localStorage.setItem(k,v);}catch(e){}} };
+
+function show(id){ ["home","game","done"].forEach(s=>$(s).classList.toggle("hide",s!==id)); window.scrollTo({top:0,behavior:"smooth"}); }
+function updStars(){ $("starbox").textContent="⭐ "+stars; }
+
+function start(m){
+  mode=m;
+  const keys=Object.keys(GEN);
+  round = m==="contest" ? shuffle(keys).slice(0,10) : Array(5).fill(m);
+  idx=0; results=[]; stars=0; updStars(); show("game"); load();
+}
+
+function load(){
+  const key=round[idx]; cur=GEN[key](); cur.key=key; tries=0; usedHint=false; solved=false;
+  $("ptag").textContent=TOPICS[key][0]+" "+TOPICS[key][1];
+  $("pnum").textContent=`${idx+1} / ${round.length}`;
+  $("pbar").style.width=(idx/round.length*100)+"%";
+  $("qtext").innerHTML=`<b>${idx+1}.</b> `+cur.text;
+  $("fig").innerHTML = cur.fig ? `<figure>${cur.fig}<figcaption>Figure ${idx+1} · ${cur.figTitle}</figcaption></figure>` : "";
+  const play=$("play"); play.className=""; play.innerHTML="";
+  if (cur.play){ play.className="play"; cur.play(play); }
+  ["msg","hint","steps"].forEach(i=>{$(i).className=i==="msg"?"msg":i; $(i).style.display="";});
+  $("hint").innerHTML="💡 "+cur.hint;
+  $("steps").innerHTML="<b>📖 Here's how:</b><ol>"+cur.steps.map(s=>`<li>${s}</li>`).join("")+"</ol>";
+  $("hintBtn").disabled=false; $("howBtn").disabled=false;
+  $("nextBtn").textContent = idx===round.length-1 ? "Finish 🏁" : "Skip ➜";
+  const a=$("ansArea");
+  if (cur.choices){
+    a.innerHTML=`<div class="choices">${cur.choices.map(c=>`<button class="choice">${c}</button>`).join("")}</div>`;
+    a.querySelectorAll(".choice").forEach(b=>b.onclick=()=>{ if(solved) return; const ok=check(b.textContent); b.classList.add(ok?"right":"wrong"); });
+  } else {
+    a.innerHTML=`<div class="answer"><input id="inp" inputmode="numeric" autocomplete="off" placeholder="?" aria-label="Your answer"><span class="unit">${cur.unit||""}</span><button class="btn" id="go">Check ✓</button></div>
+      <div class="pad">${[1,2,3,4,5,6,7,8,9,0].map(d=>`<button data-d="${d}">${d}</button>`).join("")}<button data-d="bk">⌫</button><button data-d="ok" style="background:var(--pri);color:#fff">✓</button></div>`;
+    const inp=$("inp");
+    const submit=()=>{ if(solved||inp.value.trim()==="") return; check(inp.value.trim()); };
+    $("go").onclick=submit; inp.onkeydown=e=>{ if(e.key==="Enter") submit(); };
+    a.querySelectorAll(".pad button").forEach(b=>b.onclick=()=>{const d=b.dataset.d; if(d==="bk")inp.value=inp.value.slice(0,-1); else if(d==="ok")submit(); else if(inp.value.length<5)inp.value+=d;});
+  }
+}
+
+function check(v){
+  const ok = String(v).trim()===String(cur.ans);
+  const m=$("msg");
+  if (ok){
+    solved=true;
+    const got = (tries===0 && !usedHint) ? 2 : 1;
+    stars+=got; updStars();
+    results.push({key:cur.key, ok:true, got});
+    m.className="msg good"; m.innerHTML = pick(["🎉 Awesome!","🌟 You got it!","🦉 Hoot hoot! Correct!","💪 Super thinking!"]) + ` +${"⭐".repeat(got)}`;
+    $("steps").style.display="block";
+    $("hintBtn").disabled=true; $("howBtn").disabled=true;
+    $("nextBtn").textContent = idx===round.length-1 ? "Finish 🏁" : "Next ➜";
+    burst();
+  } else {
+    tries++;
+    m.className="msg bad";
+    m.innerHTML = tries===1 ? "Not quite. Try again! 💭 Check the hint if you're stuck." : "Still not it. Try 📖 <b>Show me how</b>.";
+    if (tries===1){ $("hint").style.display="block"; usedHint=true; }
+  }
+  return ok;
+}
+
+function next(){
+  if (!solved) results.push({key:cur.key, ok:false, got:0});
+  idx++;
+  if (idx>=round.length) finish(); else load();
+}
+
+function finish(){
+  $("pbar").style.width="100%";
+  const max=round.length*2, right=results.filter(r=>r.ok).length;
+  $("doneTitle").textContent = right===round.length ? "🏆 Perfect round!" : right>=round.length*0.7 ? "🌟 Great job!" : "💪 Good practice!";
+  $("doneText").innerHTML=`You solved <b>${right}</b> of ${round.length} and earned <b>${stars}</b> of ${max} ⭐.`;
+  $("resTable").innerHTML="<tr><th>#</th><th>Puzzle</th><th>Result</th></tr>"+results.map((r,i)=>`<tr><td>${i+1}</td><td>${TOPICS[r.key][0]} ${TOPICS[r.key][1]}</td><td>${r.ok?"✅ "+"⭐".repeat(r.got):"❌ try this kind again"}</td></tr>`).join("");
+  if (mode==="contest"){ const b=+(store.get("noeticBest")||0); if(stars>b) store.set("noeticBest",stars); }
+  show("done"); if (right===round.length) { burst(); setTimeout(burst,400); }
+}
+
+function burst(){
+  const em=["⭐","🎉","✨","🌟","🦉"];
+  for(let i=0;i<16;i++){const s=document.createElement("span");s.className="burst";s.textContent=pick(em);
+    s.style.left=(window.innerWidth/2)+"px";s.style.top=(window.innerHeight/2)+"px";
+    s.style.setProperty("--dx",R(-260,260)+"px");s.style.setProperty("--dy",R(-300,120)+"px");
+    document.body.appendChild(s); setTimeout(()=>s.remove(),1200);}
+}
+
+/* ---------- Scratch pad ---------- */
+const cv=$("cv"), ctx=cv.getContext("2d"); let drawing=false;
+function sizeCv(){ const r=cv.getBoundingClientRect(); if(!r.width) return; const d=window.devicePixelRatio||1; cv.width=r.width*d; cv.height=r.height*d; ctx.scale(d,d); ctx.lineWidth=3; ctx.lineCap="round"; ctx.strokeStyle=getComputedStyle(document.body).color; }
+const pos=e=>{const r=cv.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];};
+cv.onpointerdown=e=>{drawing=true;cv.setPointerCapture(e.pointerId);ctx.beginPath();ctx.moveTo(...pos(e));};
+cv.onpointermove=e=>{if(!drawing)return;ctx.lineTo(...pos(e));ctx.stroke();};
+cv.onpointerup=cv.onpointercancel=()=>drawing=false;
+$("clearCv").onclick=()=>ctx.clearRect(0,0,cv.width,cv.height);
+$("padBtn").onclick=()=>{const s=$("scratch"); const open=s.style.display!=="block"; s.style.display=open?"block":"none"; if(open) sizeCv();};
+
+/* ---------- Buttons ---------- */
+$("hintBtn").onclick=()=>{ $("hint").style.display="block"; usedHint=true; };
+$("howBtn").onclick=()=>{ $("steps").style.display="block"; usedHint=true; tries=Math.max(tries,1); };
+$("nextBtn").onclick=next;
+$("readBtn").onclick=()=>{ if(!("speechSynthesis" in window)) return; speechSynthesis.cancel();
+  const t=$("qtext").innerText.replace(/^\d+\.\s*/,"").replace(/×/g," times ").replace(/¢/g," cents");
+  const u=new SpeechSynthesisUtterance(t); u.rate=0.9; speechSynthesis.speak(u); };
+$("startContest").onclick=()=>start("contest");
+$("again").onclick=()=>start(mode);
+$("homeBtn").onclick=()=>{ show("home"); showBest(); };
+$("themeBtn").onclick=()=>{ const r=document.documentElement; const dark = r.dataset.theme ? r.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches; r.dataset.theme = dark ? "light" : "dark"; };
+$("chips").innerHTML=Object.entries(TOPICS).map(([k,[e,n]])=>`<button class="chip" data-k="${k}"><b>${e}</b>${n}</button>`).join("");
+$("chips").querySelectorAll(".chip").forEach(c=>c.onclick=()=>start(c.dataset.k));
+function showBest(){ const b=store.get("noeticBest"); $("best").textContent = b ? `🏅 Your best contest score: ${b} of 20 ⭐` : ""; }
+showBest();
+</script>
+</body>
+</html>
